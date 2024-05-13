@@ -5,22 +5,37 @@ import Service.ServiceConsulaire;
 import Service.ServicePasseport;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
+    private static Scanner scanner = new Scanner(System.in);
+    private static ServicePasseport servicePasseport = new ServicePasseport();
+    private static ServiceConsulaire serviceConsulaire = new ServiceConsulaire();
+
     public static void main(String[] args) {
+        // Demande de création de passeport
+        System.out.println("Bienvenue dans le système de gestion des passeports et des visas.");
+        System.out.println("Veuillez entrer votre nom : ");
+        String nom = scanner.nextLine();
+        System.out.println("Veuillez entrer votre prenom : ");
+        String prenom = scanner.nextLine();
 
         // Création d'une personne
-        Personne personne = new Personne("Max", "Power");
-
+        Personne personne = new Personne(nom, prenom);
         // Service des passeports
-        ServicePasseport servicePasseport = new ServicePasseport();
-        Passeport passeport = servicePasseport.delivrerPasseport(personne.getPassport());// TODO
+        Passeport passeport = servicePasseport.delivrerPasseport(personne);// TODO
+        personne.setPassport(passeport);
 
-        // Demande de visa auprès du service consulaire
-        ServiceConsulaire serviceConsulaire = new ServiceConsulaire();
-        Visa visa = serviceConsulaire.delivrerVisa(personne, "Touriste"); //TODO
+        // Demande de visa
+        System.out.println("Souhaitez-vous obtenir un visa ? (oui/non)");
+        String choixVisa = scanner.nextLine();
+        if(choixVisa.equalsIgnoreCase("oui")){
+            System.out.println("Veuillez entrer le type de visa souhaité : ");
+            String typeVisa = scanner.nextLine();
+            Visa visa = serviceConsulaire.delivrerVisa(personne, typeVisa); //TODO
+            passeport.setVisa(visa);//TODO
+        }
 
         // Affichage des informations de la personne, du passeport et du visa
         afficherInformations(personne);
