@@ -40,12 +40,31 @@ public class Main {
         // Affichage des informations de la personne, du passeport et du visa
         afficherInformations(personne);
 
-        // Simuler une invalidité de passeport
-        servicePasseport.invaliderPasseport(passeport); //TODO
+        // Simuler une invalidité de passeport suite à un vol ou une perte
+        System.out.println("Avez-vous perdu ou vous vous êtes fait voler votre passeport ? (oui/non)");
+        String choixPerteVol = scanner.nextLine();
+        if(choixPerteVol.equalsIgnoreCase("oui")){
+            servicePasseport.invaliderPasseport(passeport); //TODO
+            System.out.println("Votre passeport a été invalidé.");
+        }
 
-        // Simuler une prolongation de visa
-        LocalDate nouvelleDateExpirationVisa = visa.getDateEpiration().plusMonths(1); //TODO
-        serviceConsulaire.prolongerDateExpiration(passeport, nouvelleDateExpirationPasseport); //TODO
+        // Simuler une demande de prolongation de visa
+        System.out.println("Voulez-vous prolonger la date d'expiration de votre visa ? (oui/non)");
+        String choixProlongationVisa = scanner.nextLine();
+        if(choixProlongationVisa.equalsIgnoreCase("oui")){
+            LocalDate nouvelleDateExpirationVisa = visa.getDateEpiration().plusYears(1); //TODO
+            serviceConsulaire.prolongerDateExpiration(passeport.getVisa(), nouvelleDateExpirationVisa); //TODO
+            System.out.println("La date d'expiration de votre visa a été prolongée.");
+        }
+
+        // Simuler une demande de prolongation de passeport
+        System.out.println("Voulez-vous prolonger la date d'expiration de votre passeport ? (oui/non)");
+        String choixProlongationPasseport = scanner.nextLine();
+        if(choixProlongationPasseport.equalsIgnoreCase("oui")){
+            LocalDate nouvelleDateExpirationPasseport = passeport.getDateExpiration().plusYears(5); //TODO
+            servicePasseport.prolongerDateExpiration(passeport, nouvelleDateExpirationPasseport); //TODO
+            System.out.println("La date d'expiration de votre passeport a été prolongée.");
+        }
 
         // Affichage des informations mises à jour
         afficherInformations(personne);
