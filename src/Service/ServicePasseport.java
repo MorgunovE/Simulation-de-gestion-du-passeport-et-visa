@@ -6,16 +6,22 @@ import Component.Passeport;
 import Component.Visa;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServicePasseport {
     private List<Passeport> passeports;
 
+    public ServicePasseport() {
+        passeports = new ArrayList<>();
+    }
+
     public Passeport delivrerPasseport(Passeport passeport) {
-        // Implémentation de la délivrance de passeport
+        // Implémentation de la délivrance de passeport TODO
     }
 
     public void prolongerDateExpiration(Passeport passeport, LocalDate nouvelleDateExpiration) {
-        // Implémentation de la prolongation de la date d'expiration
+        // Implémentation de la prolongation de la date d'expiration TODO
     }
 
     public void demandeProlongationAvecVisa(Passeport passeport) {
@@ -29,7 +35,12 @@ public class ServicePasseport {
         }
     }
 
-    public void verifierPasseport() {
+    /**
+     * Vérifie la validité et la date d'expiration des passeports des citoyens.
+     * Si un passeport est sur le point d'expirer dans les 6 prochains mois, une
+     * notification est envoyée ou une demande de prolongation est activée automatiquement.
+     */
+    public void verifierPasseports() {
         LocalDate dateAujourdhui = LocalDate.now();
         for(Passeport passeport : passeports) {
             if(passeport.getDateExpiration().minusMonths(6).isBefore(dateAujourdhui)) { //TODO
