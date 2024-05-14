@@ -42,23 +42,9 @@ public class Personne {
         System.out.println("Prenom: " + prenom);
         if (passport != null) {
             System.out.println("Informations du passeport : ");
-            passport.afficherInformations(); //TODO
+            passport.afficherInformations();
         } else {
             System.out.println("Aucun passeport associé.");
-        }
-    }
-    /**
-     * Calcule et retourne l'âge de la personne en années.
-     *
-     * @return L'âge de la personne en années.
-     */
-    public int calculerAge() {
-        LocalDate aujourdhui = LocalDate.now();
-        LocalDate dateNaissance = passport.getDateNaissance(); //TODO
-        if (dateNaissance != null) {
-            return Period.between(dateNaissance, aujourdhui).getYears();
-        } else {
-            return -1; // Date de naissance inconnue
         }
     }
 
