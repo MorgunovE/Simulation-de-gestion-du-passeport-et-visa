@@ -37,6 +37,13 @@ public class Personne {
         this.passport = passport;
     }
 
+    /**
+     * This method is used to display the information of a Personne object.
+     * It prints the name and surname of the person.
+     * If the person has a passport, it also prints the passport information.
+     * If the person does not have a passport, it prints a message indicating that no passport is associated with the person.
+     */
+
     public void afficherInformations() {
         System.out.println("Nom: " + nom);
         System.out.println("Prenom: " + prenom);
@@ -47,6 +54,7 @@ public class Personne {
             System.out.println("Aucun passeport associé.");
         }
     }
+
 
     public void demanderPassport(LocalDate dateDelivrance, LocalDate dateExpiration, String lieuDelivrance) {
         if (passport != null) {
