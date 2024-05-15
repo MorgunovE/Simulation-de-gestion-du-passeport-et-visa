@@ -68,11 +68,6 @@ public class Passeport {
         this.visa = visa;
     }
 
-    /**
-     * Prolonge la date d'expiration du passeport avec la nouvelle date spécifiée.
-     *
-     * @param nouvelleDateExpiration La nouvelle date d'expiration du passeport.
-     */
     public void prolongerDateExpiration(LocalDate nouvelleDateExpiration) {
         if(nouvelleDateExpiration.isAfter(dateExpiration)) {
             dateExpiration = nouvelleDateExpiration;

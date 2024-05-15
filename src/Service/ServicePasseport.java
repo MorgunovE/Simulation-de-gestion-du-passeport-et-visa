@@ -2,7 +2,6 @@ package Service;
 
 import Component.Passeport;
 import Component.Personne;
-import Component.Visa;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
