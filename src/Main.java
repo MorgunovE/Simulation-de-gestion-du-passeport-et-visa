@@ -9,16 +9,13 @@ import java.util.Scanner;
 
 
 public class Main {
-
-
-//    private static Scanner scanner = new Scanner(System.in);
-//    private static ServicePasseport servicePasseport = new ServicePasseport();
-//    private static ServiceConsulaire serviceConsulaire = new ServiceConsulaire();
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         ServicePasseport servicePasseport = new ServicePasseport();
         ServiceConsulaire serviceConsulaire = new ServiceConsulaire();
 
+        //Test systeme
         System.out.println("------------------------------");
         Personne personne = new Personne("Premier", "Max");
 
@@ -79,88 +76,82 @@ public class Main {
         personne.afficherInformations();
         System.out.println("------------------------------");
 
-
+        //un programme simple avec Scanner pour interactions avec l'utilisateur
+        System.out.println("------------------------------");
         // Demande de création de passeport
-//        System.out.println("Bienvenue dans le système de gestion des passeports et des visas.");
-//        System.out.println("Veuillez entrer votre nom : ");
-//        String nom = scanner.nextLine();
-//        System.out.println("Veuillez entrer votre prenom : ");
-//        String prenom = scanner.nextLine();
+        System.out.println("Bienvenue dans le système de gestion des passeports et des visas.");
+        System.out.println("Veuillez entrer votre nom : ");
+        String nom = scanner.nextLine();
+        System.out.println("Veuillez entrer votre prenom : ");
+        String prenom = scanner.nextLine();
 
         // Création d'une personne
-//        Personne personne = new Personne(nom, prenom);
+        Personne personneScanner = new Personne(nom, prenom);
         // Service des passeports
-//        Passeport passeport = servicePasseport.delivrerPasseport(personne);// TODO
-//        personne.setPassport(passeport);
+        LocalDate dateDelivrancePasseportScanner = LocalDate.now();
+        LocalDate dateExpirationPasseportScanner = LocalDate.now().plusYears(5);
+        System.out.print("Lieu de délivrance: ");
+        String lieuDelivrancePasseportScanner = scanner.nextLine();
+        Passeport passeportScanner = new Passeport(dateDelivrancePasseportScanner, dateExpirationPasseportScanner, lieuDelivrancePasseportScanner);
+        servicePasseport.demanderPasseport(personneScanner, passeportScanner);
 
         // Demande de visa
-//        System.out.println("Souhaitez-vous obtenir un visa ? (oui/non)");
-//        String choixVisa = scanner.nextLine();
-//        if(choixVisa.equalsIgnoreCase("oui")){
-//            System.out.println("Veuillez entrer le type de visa souhaité : ");
-//            String typeVisa = scanner.nextLine();
-//            Visa visa = serviceConsulaire.delivrerVisa(personne, typeVisa); //TODO
-//            passeport.setVisa(visa);//TODO
-//        }
+        System.out.println("Souhaitez-vous obtenir un visa ? (y/n)");
+        String choixVisaScanner = scanner.nextLine();
+        if(choixVisaScanner.equalsIgnoreCase("y")){
+            System.out.println("Veuillez entrer le type de visa souhaité : ");
+            String typeVisaScanner = scanner.nextLine();
+            LocalDate dateDelivranceVisaScanner = LocalDate.now();
+            LocalDate dateExpirationVisaScanner = LocalDate.now().plusMonths(6);
+            Visa visaScanner = new Visa(typeVisaScanner, dateDelivranceVisaScanner, dateExpirationVisaScanner);
+            serviceConsulaire.demanderVisa(personneScanner, visaScanner);
+        }
 
         // Affichage des informations de la personne, du passeport et du visa
-//        afficherInformations(personne);
+        System.out.println("Informations de la personne : ");
+        personneScanner.afficherInformations();
+        System.out.println("Merci pour votre visite.");
+        System.out.println("------------------------------");
 
+        System.out.println("------------------------------");
         // Simuler une invalidité de passeport suite à un vol ou une perte
-//        System.out.println("Avez-vous perdu ou vous vous êtes fait voler votre passeport ? (oui/non)");
-//        String choixPerteVol = scanner.nextLine();
-//        if(choixPerteVol.equalsIgnoreCase("oui")){
-//            servicePasseport.annulerPasseport(passeport); //TODO
-//            System.out.println("Votre passeport a été invalidé.");
-//        }
+        System.out.println("Avez-vous perdu ou vous vous êtes fait voler votre passeport ? (y/n)");
+        String choixPerteVolScanner = scanner.nextLine();
+        if(choixPerteVolScanner.equalsIgnoreCase("y")){
+            servicePasseport.annulerPasseport(passeportScanner);
+            System.out.println("Informations de la personne : ");
+            personneScanner.afficherInformations();
+            System.out.println("Merci pour votre visite.");
+        }
+        System.out.println("------------------------------");
 
+        System.out.println("------------------------------");
         // Simuler une demande de prolongation de visa
-//        System.out.println("Voulez-vous prolonger la date d'expiration de votre visa ? (oui/non)");
-//        String choixProlongationVisa = scanner.nextLine();
-//        if(choixProlongationVisa.equalsIgnoreCase("oui")){
-//            LocalDate nouvelleDateExpirationVisa = visa.getDateEpiration().plusYears(1); //TODO
-//            serviceConsulaire.prolongerDateExpiration(passeport.getVisa(), nouvelleDateExpirationVisa); //TODO
-//            System.out.println("La date d'expiration de votre visa a été prolongée.");
-//        }
+        System.out.println("Voulez-vous prolonger la date d'expiration de votre visa ? (y/n)");
+        String choixProlongationVisaScanner = scanner.nextLine();
+        if(choixProlongationVisaScanner.equalsIgnoreCase("y")){
+            personneScanner.getPassport().setValide(true);
+            if(!personneScanner.getPassport().getVisa().isEmpty()){
+                personneScanner.getPassport().getVisa().forEach(visaScanner -> visaScanner.setValide(true));
+                personneScanner.getPassport().getVisa().forEach(visaScanner -> serviceConsulaire.demanderPrologationVisa(personneScanner, visaScanner, LocalDate.now().plusMonths(10)));
+                System.out.println("Informations de la personne : ");
+                personneScanner.afficherInformations();
+                System.out.println("Merci pour votre visite.");
+            }
+        }
+        System.out.println("------------------------------");
 
+        System.out.println("------------------------------");
         // Simuler une demande de prolongation de passeport
-//        System.out.println("Voulez-vous prolonger la date d'expiration de votre passeport ? (oui/non)");
-//        String choixProlongationPasseport = scanner.nextLine();
-//        if(choixProlongationPasseport.equalsIgnoreCase("oui")){
-//            LocalDate nouvelleDateExpirationPasseport = passeport.getDateExpiration().plusYears(5); //TODO
-//            servicePasseport.prolongerDateExpiration(passeport, nouvelleDateExpirationPasseport); //TODO
-//            System.out.println("La date d'expiration de votre passeport a été prolongée.");
-//        }
-
-        // Affichage des informations mises à jour
-//        afficherInformations(personne);
-//    }
-
-//    private static void afficherInformations(Personne personne) {
-//        System.out.println("Informations de la personne : ");
-//        System.out.println("Nom : " + personne.getNom()); //TODO
-//        System.out.println("Prenom : " + personne.getPrenom()); //TODO
-//
-//        Passeport passeport = personne.getPassport();
-//        if(passeport != null) {
-//            System.out.println("Informations du passeport : ");
-//            System.out.println("Numero : " + passeport.getNumero()); //TODO
-//            System.out.println("Date de délivrance : " + passeport.getDateDelivrance()); //TODO
-//            System.out.println("Date d'expiration : " + passeport.getDateExpiration()); //TODO
-//            System.out.println("Valide : " + passeport.estValide()); //TODO
-//
-//            Visa visa = passeport.getVisa(); //TODO
-//            if(visa != null) {
-//                System.out.println("Informations du visa : ");
-//                System.out.println("Type : " + visa.getType()); //TODO
-//                System.out.println("Date de délivrance : " + visa.getDateDelivrance()); //TODO
-//                System.out.println("Date d'expiration : " + visa.getDateExpiration()); //TODO
-//                System.out.println("Valide : " + visa.estValide()); //TODO
-//            }
-//
-//        } else {
-//            System.out.println("Personne n'a pas de passeport.");
-//        }
-//        System.out.println("------------------------------");
+        System.out.println("Voulez-vous prolonger la date d'expiration de votre passeport ? (y/n)");
+        String choixProlongationPasseportScanner = scanner.nextLine();
+        if(choixProlongationPasseportScanner.equalsIgnoreCase("y")){
+            personneScanner.getPassport().setValide(true);
+            servicePasseport.demanderPrologationPasseport(personneScanner.getPassport(), LocalDate.now().plusYears(10));
+            System.out.println("Informations de la personne : ");
+            personneScanner.afficherInformations();
+            System.out.println("Merci pour votre visite.");
+        }
+        System.out.println("------------------------------");
     }
 }
