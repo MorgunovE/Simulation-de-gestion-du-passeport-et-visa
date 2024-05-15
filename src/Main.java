@@ -44,7 +44,7 @@ public class Main {
         System.out.println("Avez-vous perdu ou vous vous êtes fait voler votre passeport ? (oui/non)");
         String choixPerteVol = scanner.nextLine();
         if(choixPerteVol.equalsIgnoreCase("oui")){
-            servicePasseport.invaliderPasseport(passeport); //TODO
+            servicePasseport.annulerPasseport(passeport); //TODO
             System.out.println("Votre passeport a été invalidé.");
         }
 

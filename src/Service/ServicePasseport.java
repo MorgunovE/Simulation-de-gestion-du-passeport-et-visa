@@ -1,8 +1,7 @@
 package Service;
 
-//Pour l’obtention d’un passeport, une personne s’adresse au service des passeports qui s’occupe de délivrer un passeport avec un numéro unique.
-
 import Component.Passeport;
+import Component.Personne;
 import Component.Visa;
 
 import java.time.LocalDate;
@@ -16,38 +15,31 @@ public class ServicePasseport {
         passeports = new ArrayList<>();
     }
 
-    public Passeport delivrerPasseport(Passeport passeport) {
-        // Implémentation de la délivrance de passeport TODO
-    }
-
-    public void prolongerDateExpiration(Passeport passeport, LocalDate nouvelleDateExpiration) {
-        // Implémentation de la prolongation de la date d'expiration TODO
-    }
-
-    public void demandeProlongationAvecVisa(Passeport passeport) {
-        if(passeport.estProlongationAutomatique()) { //TODO
-            Visa visa = passeport.getVisa(); //TODO
-            if(visa != null) {
-                LocalDate nouvelleDateExpirationVisa = visa.getDateExpiration().plusYears(1); //TODO
-                serviceConsulaire.prolongerDateExpiration(visa, nouvelleDateExpirationVisa); //TODO
-
-            }
+    public void demanderPasseport(Personne personne, Passeport passeport) {
+        if (!passeports.contains(passeport)) {
+            passeports.add(passeport);
+            personne.setPassport(passeport);
+            System.out.println("Passeport délivré avec succès à " + personne.getNom() + " " + personne.getPrenom());
+        } else {
+            System.out.println("Le passeport a déjà été délivré à " + personne.getNom() + " " + personne.getPrenom());
         }
     }
 
-    /**
-     * Vérifie la validité et la date d'expiration des passeports des citoyens.
-     * Si un passeport est sur le point d'expirer dans les 6 prochains mois, une
-     * notification est envoyée ou une demande de prolongation est activée automatiquement.
-     */
-    public void verifierPasseports() {
-        LocalDate dateAujourdhui = LocalDate.now();
-        for(Passeport passeport : passeports) {
-            if(passeport.getDateExpiration().minusMonths(6).isBefore(dateAujourdhui)) { //TODO
-                // Envoyer une notification pour renouvellement de passeport
-                // Ou activer automatiquement une demande de prolongation
-                // En fonction des besoins
-            }
+    public void demanderPrologationPasseport(Passeport passeport, LocalDate nouvelleDateExpiration) {
+        if(passeports.contains(passeport)) {
+            passeport.prolongerDateExpiration(nouvelleDateExpiration);
+            System.out.println("La date d'expiration du passeport a été prolongée avec succès.");
+        } else {
+            System.out.println("Le passeport n'a pas été délivré par ce service.");
+        }
+    }
+
+    public void annulerPasseport(Passeport passeport) {
+        if(passeports.contains(passeport)) {
+            passeport.setValide(false);
+            System.out.println("Le passeport a été annulé avec succès.");
+        } else {
+            System.out.println("Le passeport n'a pas été délivré par ce service.");
         }
     }
 
