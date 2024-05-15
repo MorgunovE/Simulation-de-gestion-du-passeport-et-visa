@@ -65,7 +65,8 @@ public class Visa {
 
     public void afficherInformations() {
         System.out.println("Informations du visa : ");
-        System.out.println("Type : " + type);
+        System.out.println("Numero de visa: " + numero);
+        System.out.println("Type de visa: " + type);
         System.out.println("Date de délivrance : " + dateDelivrance);
         System.out.println("Date d'expiration : " + dateExpiration);
         System.out.println("Valide : " + (valide ? "Oui" : "Non"));
