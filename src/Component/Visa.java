@@ -3,16 +3,23 @@ package Component;
 import java.time.LocalDate;
 
 public class Visa {
+    private static int compteurVisa = 0;
+    private int numero;
     private String type;
     private LocalDate dateDelivrance;
     private LocalDate dateExpiration;
     private boolean valide;
 
     public Visa(String type, LocalDate dateDelivrance, LocalDate dateExpiration) {
+        this.numero = ++compteurVisa;
         this.type = type;
         this.dateDelivrance = dateDelivrance;
         this.dateExpiration = dateExpiration;
         this.valide = true;
+    }
+
+    public int getNumero() {
+        return numero;
     }
 
     public String getType() {
