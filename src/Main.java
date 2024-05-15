@@ -73,7 +73,7 @@ public class Main {
         System.out.println("------------------------------");
 
         System.out.println("------------------------------");
-        System.out.println("Annulation du passeport : ");
+        System.out.println("Annulation du passeport et automatiquement des visas qui lui sont associés: ");
         servicePasseport.annulerPasseport(passeport);
         System.out.println("Informations de la personne : ");
         personne.afficherInformations();
