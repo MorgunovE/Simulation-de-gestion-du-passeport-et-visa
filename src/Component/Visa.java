@@ -69,14 +69,13 @@ public class Visa {
 //        }
 //    }
 
-//    public void afficherInformations() {
-//        System.out.println("Informations du visa : ");
-//        System.out.println("Numero de visa: " + numero);
-//        System.out.println("Type de visa: " + type);
-//        System.out.println("Date de délivrance de visa : " + dateDelivrance);
-//        System.out.println("Date d'expiration de visa : " + dateExpiration);
-//        System.out.println("Visa est valide : " + (estValide() ? "Oui" : "Non"));
-//    }
+    public void afficherInformations() {
+        System.out.println("Numero de visa: " + numero);
+        System.out.println("Type de visa: " + type);
+        System.out.println("Date de délivrance de visa : " + dateDelivrance);
+        System.out.println("Date d'expiration de visa : " + dateExpiration);
+        System.out.println("Visa est valide : " + (estValide() ? "Oui" : "Non"));
+    }
 }
 
 

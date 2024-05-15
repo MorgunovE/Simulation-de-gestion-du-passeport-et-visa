@@ -19,6 +19,7 @@ public class Main {
         ServicePasseport servicePasseport = new ServicePasseport();
         ServiceConsulaire serviceConsulaire = new ServiceConsulaire();
 
+        System.out.println("------------------------------");
         Personne personne = new Personne("Premier", "Max");
 
         LocalDate dateDelivrancePasseport = LocalDate.of(2024, 5, 14);
@@ -54,21 +55,28 @@ public class Main {
         System.out.println("------------------------------");
 
         System.out.println("------------------------------");
-        System.out.println("Informations de visa et la date expiration plus que le passeport:");
+        System.out.println("Informations de la personne avec nouvelle visa et la date expiration est déterminée de la durée de validité du passeport. : ");
         LocalDate dateDelivranceVisa2 = LocalDate.of(2024, 5, 15);
         LocalDate dateExpirationVisa2 = LocalDate.of(2035, 1, 1);
         String typeVisa2 = "Etudiant";
         Visa visa2 = new Visa(typeVisa2, dateDelivranceVisa2, dateExpirationVisa2);
         serviceConsulaire.demanderVisa(personne, visa2);
-        System.out.println("------------------------------");
-
-        System.out.println("------------------------------");
-        System.out.println("Informations de la personne avec nouvelle visa et la date expiration est déterminée de la durée de validité du passeport. : ");
+        System.out.println("Informations de la personne : ");
         personne.afficherInformations();
         System.out.println("------------------------------");
 
         System.out.println("------------------------------");
-        personne.getPassport().getVisa().afficherInformations();
+        System.out.println("Annulation du visa : ");
+        serviceConsulaire.annulerVisa(visa2);
+        System.out.println("Informations de la personne : ");
+        personne.afficherInformations();
+        System.out.println("------------------------------");
+
+        System.out.println("------------------------------");
+        System.out.println("Annulation du passeport : ");
+        servicePasseport.annulerPasseport(passeport);
+        System.out.println("Informations de la personne : ");
+        personne.afficherInformations();
         System.out.println("------------------------------");
 
 

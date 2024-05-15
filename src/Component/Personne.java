@@ -43,16 +43,16 @@ public class Personne {
      * If the person does not have a passport, it prints a message indicating that no passport is associated with the person.
      */
 
-//    public void afficherInformations() {
-//        System.out.println("Nom: " + nom);
-//        System.out.println("Prenom: " + prenom);
-//        if (passport != null) {
-//            System.out.println("Informations du passeport : ");
-//            passport.afficherInformations();
-//        } else {
-//            System.out.println("Aucun passeport associé.");
-//        }
-//    }
+    public void afficherInformations() {
+        System.out.println("Nom: " + nom);
+        System.out.println("Prenom: " + prenom);
+        if (passport != null) {
+            System.out.println("Informations du passeport : ");
+            passport.afficherInformations();
+        } else {
+            System.out.println("Aucun passeport associé.");
+        }
+    }
 
 
 //    public void demanderPassport(LocalDate dateDelivrance, LocalDate dateExpiration, String lieuDelivrance) {

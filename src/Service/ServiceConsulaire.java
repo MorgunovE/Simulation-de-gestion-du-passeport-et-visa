@@ -22,6 +22,7 @@ public class ServiceConsulaire {
                 return;
             } if(visa.getDateExpiration().isAfter(personne.getPassport().getDateExpiration())){
                 visa.setDateExpiration(personne.getPassport().getDateExpiration());
+                personne.getPassport().setVisa(visa);
                 System.out.println("Visa délivré avec succès à " + personne.getNom() + " " + personne.getPrenom());
                 System.out.println("La date d'expiration du visa est déterminée de la durée de validité du passeport.");
             } else {

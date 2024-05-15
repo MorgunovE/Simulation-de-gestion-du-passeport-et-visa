@@ -40,11 +40,15 @@ public class ServicePasseport {
     public void annulerPasseport(Passeport passeport) {
         if(passeports.contains(passeport)) {
             passeport.setValide(false);
-            passeport.getVisa().setValide(false);
+            if(!passeport.getVisa().isEmpty()){
+                passeport.getVisa().forEach(visa -> visa.setValide(false));
+            }
             System.out.println("Le passeport a été annulé avec succès.");
         } else {
             System.out.println("Le passeport n'a pas été délivré par ce service.");
         }
     }
+
+
 
 }

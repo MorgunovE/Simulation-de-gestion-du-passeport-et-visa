@@ -1,6 +1,8 @@
 package Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Passeport {
     private int numero;
@@ -8,7 +10,7 @@ public class Passeport {
     private String lieuDelivrance;
     private LocalDate dateExpiration;
     private boolean valide;
-    private Visa visa;
+    private List<Visa> visas;
 
     public static int compteurPasseport = 0;
 
@@ -18,6 +20,7 @@ public class Passeport {
         this.dateExpiration = dateExpiration;
         this.lieuDelivrance = lieuDelivrance;
         this.valide = dateExpiration.isAfter(LocalDate.now());
+        this.visas = new ArrayList<>();
     }
 
     public int getNumero() {
@@ -56,7 +59,9 @@ public class Passeport {
         if(dateExpiration.isAfter(LocalDate.now()) && valide){
             return true;
         } else {
-            visa.setValide(false);
+            for(Visa visa : visas) {
+                visa.setValide(false);
+            }
             setValide(false);
             return false;
         }
@@ -66,12 +71,12 @@ public class Passeport {
         this.valide = valide;
     }
 
-    public Visa getVisa() {
-        return visa;
+    public List<Visa> getVisa() {
+        return visas;
     }
 
     public void setVisa(Visa visa) {
-        this.visa = visa;
+       visas.add(visa);
     }
 
 //    public void prolongerDateExpiration(LocalDate nouvelleDateExpiration) {
@@ -83,15 +88,16 @@ public class Passeport {
 //        }
 //    }
 
-//    public void afficherInformations() {
-//        System.out.println("Numéro de passeport:  " + numero);
-//        System.out.println("Date de délivrance de passeport : " + dateDelivrance);
-//        System.out.println("Date d'expiration de passeport : " + dateExpiration);
-//        System.out.println("Lieu de délivrance de passeport : " + lieuDelivrance);
-//        System.out.println("Passeport est valide : " + (estValide() ? "Oui" : "Non"));
-//        if (visa != null) {
-//            visa.afficherInformations();
-//        }
-//    }
+    public void afficherInformations() {
+        System.out.println("Numéro de passeport:  " + numero);
+        System.out.println("Date de délivrance de passeport : " + dateDelivrance);
+        System.out.println("Date d'expiration de passeport : " + dateExpiration);
+        System.out.println("Lieu de délivrance de passeport : " + lieuDelivrance);
+        System.out.println("Passeport est valide : " + (estValide() ? "Oui" : "Non"));
+        if (!visas.isEmpty()) {
+            System.out.println("Informations sur les visas : ");
+            visas.forEach(Visa::afficherInformations);
+        }
+    }
 
 }
