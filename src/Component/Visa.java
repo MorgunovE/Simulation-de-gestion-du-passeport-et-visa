@@ -15,7 +15,7 @@ public class Visa {
         this.type = type;
         this.dateDelivrance = dateDelivrance;
         this.dateExpiration = dateExpiration;
-        this.valide = true;
+        this.valide = dateExpiration.isAfter(LocalDate.now());
     }
 
     public int getNumero() {
@@ -47,30 +47,36 @@ public class Visa {
     }
 
     public boolean estValide() {
-        return valide;
+        if(dateExpiration.isAfter(LocalDate.now()) && valide){
+            return true;
+        } else {
+            setValide(false);
+            return false;
+        }
+
     }
 
     public void setValide(boolean valide) {
         this.valide = valide;
     }
 
-    public void prolongerDateExpiration(LocalDate nouvelleDateExpiration) {
-        if (nouvelleDateExpiration.isAfter(dateExpiration)) {
-            dateExpiration = nouvelleDateExpiration;
-            System.out.println("La date d'expiration du visa a été prolongée avec succès.");
-        } else {
-            System.out.println("La nouvelle date d'expiration doit être postérieure à la date actuelle.");
-        }
-    }
+//    public void prolongerDateExpiration(LocalDate nouvelleDateExpiration) {
+//        if (nouvelleDateExpiration.isAfter(dateExpiration)) {
+//            dateExpiration = nouvelleDateExpiration;
+//            System.out.println("La date d'expiration du visa a été prolongée avec succès.");
+//        } else {
+//            System.out.println("La nouvelle date d'expiration doit être postérieure à la date actuelle.");
+//        }
+//    }
 
-    public void afficherInformations() {
-        System.out.println("Informations du visa : ");
-        System.out.println("Numero de visa: " + numero);
-        System.out.println("Type de visa: " + type);
-        System.out.println("Date de délivrance : " + dateDelivrance);
-        System.out.println("Date d'expiration : " + dateExpiration);
-        System.out.println("Valide : " + (valide ? "Oui" : "Non"));
-    }
+//    public void afficherInformations() {
+//        System.out.println("Informations du visa : ");
+//        System.out.println("Numero de visa: " + numero);
+//        System.out.println("Type de visa: " + type);
+//        System.out.println("Date de délivrance de visa : " + dateDelivrance);
+//        System.out.println("Date d'expiration de visa : " + dateExpiration);
+//        System.out.println("Visa est valide : " + (estValide() ? "Oui" : "Non"));
+//    }
 }
 
 

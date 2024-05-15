@@ -17,7 +17,7 @@ public class Passeport {
         this.dateDelivrance = dateDelivrance;
         this.dateExpiration = dateExpiration;
         this.lieuDelivrance = lieuDelivrance;
-        this.valide = true;
+        this.valide = dateExpiration.isAfter(LocalDate.now());
     }
 
     public int getNumero() {
@@ -53,7 +53,13 @@ public class Passeport {
     }
 
     public boolean estValide() {
-        return valide;
+        if(dateExpiration.isAfter(LocalDate.now()) && valide){
+            return true;
+        } else {
+            visa.setValide(false);
+            setValide(false);
+            return false;
+        }
     }
 
     public void setValide(boolean valide) {
@@ -68,25 +74,24 @@ public class Passeport {
         this.visa = visa;
     }
 
-    public void prolongerDateExpiration(LocalDate nouvelleDateExpiration) {
-        if(nouvelleDateExpiration.isAfter(dateExpiration)) {
-            dateExpiration = nouvelleDateExpiration;
-            System.out.println("La date d'expiration du passeport a été prolongée avec succès.");
-        } else  {
-            System.out.println("La nouvelle date d'expiration doit être postérieure à la date actuelle.");
-        }
-    }
+//    public void prolongerDateExpiration(LocalDate nouvelleDateExpiration) {
+//        if(nouvelleDateExpiration.isAfter(dateExpiration)) {
+//            dateExpiration = nouvelleDateExpiration;
+//            System.out.println("La date d'expiration du passeport a été prolongée avec succès.");
+//        } else  {
+//            System.out.println("La nouvelle date d'expiration doit être postérieure à la date actuelle.");
+//        }
+//    }
 
-    public void afficherInformations() {
-        System.out.println("Numéro de passeport:  " + numero);
-        System.out.println("Date de délivrance : " + dateDelivrance);
-        System.out.println("Date d'expiration : " + dateExpiration);
-        System.out.println("Lieu de délivrance : " + lieuDelivrance);
-        System.out.println("Valide : " + (valide ? "Oui" : "Non"));
-        if (visa != null) {
-            System.out.println("Information du visa ; ");
-            visa.afficherInformations(); //TODO
-        }
-    }
+//    public void afficherInformations() {
+//        System.out.println("Numéro de passeport:  " + numero);
+//        System.out.println("Date de délivrance de passeport : " + dateDelivrance);
+//        System.out.println("Date d'expiration de passeport : " + dateExpiration);
+//        System.out.println("Lieu de délivrance de passeport : " + lieuDelivrance);
+//        System.out.println("Passeport est valide : " + (estValide() ? "Oui" : "Non"));
+//        if (visa != null) {
+//            visa.afficherInformations();
+//        }
+//    }
 
 }

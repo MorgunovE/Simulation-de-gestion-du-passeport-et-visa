@@ -20,18 +20,31 @@ public class ServiceConsulaire {
             if(personne.getPassport() == null) {
                 System.out.println("Aucun passeport associé à " + personne.getNom() + " " + personne.getPrenom());
                 return;
+            } if(visa.getDateExpiration().isAfter(personne.getPassport().getDateExpiration())){
+                visa.setDateExpiration(personne.getPassport().getDateExpiration());
+                System.out.println("Visa délivré avec succès à " + personne.getNom() + " " + personne.getPrenom());
+                System.out.println("La date d'expiration du visa est déterminée de la durée de validité du passeport.");
+            } else {
+                personne.getPassport().setVisa(visa);
+                System.out.println("Visa délivré avec succès à " + personne.getNom() + " " + personne.getPrenom());
             }
-            personne.getPassport().setVisa(visa);
-            System.out.println("Visa délivré avec succès à " + personne.getNom() + " " + personne.getPrenom());
+
         } else {
             System.out.println("Le visa a déjà été délivré à " + personne.getNom() + " " + personne.getPrenom());
         }
     }
 
-    public void demanderPrologationVisa(Visa visa, LocalDate nouvelleDateExpiration) {
+    public void demanderPrologationVisa(Personne personne, Visa visa, LocalDate nouvelleDateExpiration) {
         if(visas.contains(visa)) {
-            visa.prolongerDateExpiration(nouvelleDateExpiration);
-            System.out.println("La date d'expiration du visa a été prolongée avec succès.");
+            if(nouvelleDateExpiration.isAfter(visa.getDateExpiration())){
+                if(nouvelleDateExpiration.isAfter(personne.getPassport().getDateExpiration())) {
+                    visa.setDateExpiration(personne.getPassport().getDateExpiration());
+                    System.out.println("La date d'expiration du visa est déterminée de la durée de validité du passeport.");
+                } else {
+                    visa.setDateExpiration(nouvelleDateExpiration);
+                    System.out.println("La date d'expiration du visa a été prolongée avec succès.");
+                }
+            }
         } else {
             System.out.println("Le visa n'a pas été délivré par ce service.");
         }
