@@ -76,6 +76,11 @@ public class Main {
         personne.afficherInformations();
         System.out.println("------------------------------");
 
+        System.out.println("------------------------------");
+        System.out.println("La processus automatique de vérification de la validité et de la date d'expiration des passeports des citoyens");
+        servicePasseport.planifierVerificationAnnuelle();
+        System.out.println("------------------------------");
+
         //un programme simple avec Scanner pour interactions avec l'utilisateur
         System.out.println("------------------------------");
         // Demande de création de passeport
@@ -167,6 +172,16 @@ public class Main {
             servicePasseport.demanderPrologationPasseport(personneScanner.getPassport(), LocalDate.now().plusYears(10));
             System.out.println("Informations de la personne : ");
             personneScanner.afficherInformations();
+            System.out.println("Merci pour votre visite.");
+        }
+        System.out.println("------------------------------");
+
+        System.out.println("------------------------------");
+        //une structure de données qui permettrait au service des passeports de rouler un processus automatique annuel qui vérifie la validité et la date d’expiration des passeports des citoyens.
+        System.out.println("Voulez-vous lancer un processus automatique de vérification de la validité et de la date d'expiration des passeports des citoyens ? (y/n)");
+        String choixVerificationPasseportsAutomatiqueScanner = scanner.nextLine();
+        if(choixVerificationPasseportsAutomatiqueScanner.equalsIgnoreCase("y")){
+            servicePasseport.verifierPasseports();
             System.out.println("Merci pour votre visite.");
         }
         System.out.println("------------------------------");
