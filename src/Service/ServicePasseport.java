@@ -54,7 +54,7 @@ public class ServicePasseport {
             if(!passeport.getVisa().isEmpty()){
                 passeport.getVisa().forEach(visa -> visa.setValide(false));
             }
-            System.out.println("Le passeport a été annulé avec succès.");
+            System.out.println("Le passeport et le visa correspondant ont été annulés avec succès.");
         } else {
             System.out.println("Le passeport n'a pas été délivré par ce service.");
         }
