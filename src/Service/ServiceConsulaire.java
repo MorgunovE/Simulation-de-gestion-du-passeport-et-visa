@@ -38,6 +38,7 @@ public class ServiceConsulaire {
     public void demanderPrologationVisa(Personne personne, Visa visa, LocalDate nouvelleDateExpiration) {
         if(visas.contains(visa)) {
             if(nouvelleDateExpiration.isAfter(visa.getDateExpiration())){
+                visa.setValide(true);
                 if(nouvelleDateExpiration.isAfter(personne.getPassport().getDateExpiration())) {
                     visa.setDateExpiration(personne.getPassport().getDateExpiration());
                     System.out.println("La date d'expiration du visa est déterminée de la durée de validité du passeport.");

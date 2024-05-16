@@ -60,15 +60,6 @@ public class Visa {
         this.valide = valide;
     }
 
-//    public void prolongerDateExpiration(LocalDate nouvelleDateExpiration) {
-//        if (nouvelleDateExpiration.isAfter(dateExpiration)) {
-//            dateExpiration = nouvelleDateExpiration;
-//            System.out.println("La date d'expiration du visa a été prolongée avec succès.");
-//        } else {
-//            System.out.println("La nouvelle date d'expiration doit être postérieure à la date actuelle.");
-//        }
-//    }
-
     public void afficherInformations() {
         System.out.println("Numero de visa: " + numero);
         System.out.println("Type de visa: " + type);

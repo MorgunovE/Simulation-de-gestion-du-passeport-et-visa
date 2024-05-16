@@ -27,8 +27,19 @@ public class ServicePasseport {
     public void demanderPrologationPasseport(Passeport passeport, LocalDate nouvelleDateExpiration) {
         if(passeports.contains(passeport)) {
             if(nouvelleDateExpiration.isAfter(passeport.getDateExpiration())){
+                passeport.setValide(true);
                 passeport.setDateExpiration(nouvelleDateExpiration);
                 System.out.println("La date d'expiration du passeport a été prolongée avec succès.");
+                if(passeport.estProlongerVisaAutomatiquement()) {
+                    if(!passeport.getVisa().isEmpty()){
+                        passeport.getVisa().forEach(visa -> {
+                                visa.setValide(true);
+                                visa.setDateExpiration(LocalDate.now().plusMonths(9));});
+                        System.out.println("La date d'expiration du visa a été prolongée automatique avec succès.");
+                    } else {
+                        System.out.println("Le visa n'a pas été délivré par ce service.");
+                    }
+                }
             } else {
                 System.out.println("La date d'expiration doit être postérieure à la date actuelle.");
             }

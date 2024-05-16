@@ -10,6 +10,7 @@ public class Passeport {
     private String lieuDelivrance;
     private LocalDate dateExpiration;
     private boolean valide;
+    private boolean prolongerVisaAutomatiquement;
     private List<Visa> visas;
 
     public static int compteurPasseport = 0;
@@ -20,6 +21,7 @@ public class Passeport {
         this.dateExpiration = dateExpiration;
         this.lieuDelivrance = lieuDelivrance;
         this.valide = dateExpiration.isAfter(LocalDate.now());
+        this.prolongerVisaAutomatiquement = false;
         this.visas = new ArrayList<>();
     }
 
@@ -79,15 +81,6 @@ public class Passeport {
        visas.add(visa);
     }
 
-//    public void prolongerDateExpiration(LocalDate nouvelleDateExpiration) {
-//        if(nouvelleDateExpiration.isAfter(dateExpiration)) {
-//            dateExpiration = nouvelleDateExpiration;
-//            System.out.println("La date d'expiration du passeport a été prolongée avec succès.");
-//        } else  {
-//            System.out.println("La nouvelle date d'expiration doit être postérieure à la date actuelle.");
-//        }
-//    }
-
     public void afficherInformations() {
         System.out.println("Numéro de passeport:  " + numero);
         System.out.println("Date de délivrance de passeport : " + dateDelivrance);
@@ -100,4 +93,11 @@ public class Passeport {
         }
     }
 
+    public boolean estProlongerVisaAutomatiquement() {
+        return prolongerVisaAutomatiquement;
+    }
+
+    public void setProlongerVisaAutomatiquement(boolean prolongerVisaAutomatiquement) {
+        this.prolongerVisaAutomatiquement = prolongerVisaAutomatiquement;
+    }
 }

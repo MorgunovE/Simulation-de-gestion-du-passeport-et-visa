@@ -130,13 +130,18 @@ public class Main {
         System.out.println("Voulez-vous prolonger la date d'expiration de votre visa ? (y/n)");
         String choixProlongationVisaScanner = scanner.nextLine();
         if(choixProlongationVisaScanner.equalsIgnoreCase("y")){
-            personneScanner.getPassport().setValide(true);
-            if(!personneScanner.getPassport().getVisa().isEmpty()){
-                personneScanner.getPassport().getVisa().forEach(visaScanner -> visaScanner.setValide(true));
-                personneScanner.getPassport().getVisa().forEach(visaScanner -> serviceConsulaire.demanderPrologationVisa(personneScanner, visaScanner, LocalDate.now().plusMonths(10)));
-                System.out.println("Informations de la personne : ");
-                personneScanner.afficherInformations();
-                System.out.println("Merci pour votre visite.");
+            if(personneScanner.getPassport().estValide()) {
+                if(!personneScanner.getPassport().getVisa().isEmpty()){
+                    personneScanner.getPassport().getVisa().forEach(visaScanner -> visaScanner.setValide(true));
+                    personneScanner.getPassport().getVisa().forEach(visaScanner -> serviceConsulaire.demanderPrologationVisa(personneScanner, visaScanner, LocalDate.now().plusMonths(10)));
+                    System.out.println("Informations de la personne : ");
+                    personneScanner.afficherInformations();
+                    System.out.println("Merci pour votre visite.");
+                } else {
+                    System.out.println("Aucun visa associé à ce passeport.");
+                }
+            } else {
+                System.out.println("Le passeport n'est pas valide.");
             }
         }
         System.out.println("------------------------------");
@@ -146,7 +151,19 @@ public class Main {
         System.out.println("Voulez-vous prolonger la date d'expiration de votre passeport ? (y/n)");
         String choixProlongationPasseportScanner = scanner.nextLine();
         if(choixProlongationPasseportScanner.equalsIgnoreCase("y")){
-            personneScanner.getPassport().setValide(true);
+            servicePasseport.demanderPrologationPasseport(personneScanner.getPassport(), LocalDate.now().plusYears(10));
+            System.out.println("Informations de la personne : ");
+            personneScanner.afficherInformations();
+            System.out.println("Merci pour votre visite.");
+        }
+        System.out.println("------------------------------");
+
+        System.out.println("------------------------------");
+        // Simuler une nouvelle plateforme qui permet, moyennant des frais supplémentaires, l'activation automatique d'une demande de prolongation de visa sur un passeport pour lequel une demande de prolongation
+        System.out.println("Voulez-vous prolonger la date d'expiration de votre visa automatique avec votre passeport ? (y/n)");
+        String choixProlongationVisaAutomatiqueScanner = scanner.nextLine();
+        if(choixProlongationVisaAutomatiqueScanner.equalsIgnoreCase("y")){
+            personneScanner.getPassport().setProlongerVisaAutomatiquement(true);
             servicePasseport.demanderPrologationPasseport(personneScanner.getPassport(), LocalDate.now().plusYears(10));
             System.out.println("Informations de la personne : ");
             personneScanner.afficherInformations();
