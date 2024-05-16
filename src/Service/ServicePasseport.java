@@ -10,13 +10,26 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * La classe ServicePasseport gère les opérations liées aux passeports,
+ * y compris l'émission, la prolongation, l'annulation, et la vérification.
+ */
 public class ServicePasseport {
     private List<Passeport> passeports;
 
+    /**
+     * Constructeur par défaut initialisant la liste des passeports.
+     */
     public ServicePasseport() {
         passeports = new ArrayList<>();
     }
 
+    /**
+     * Méthode pour demander un passeport pour une personne.
+     *
+     * @param personne La personne demandant le passeport
+     * @param passeport Le passeport à délivrer
+     */
     public void demanderPasseport(Personne personne, Passeport passeport) {
         if (!passeports.contains(passeport)) {
             passeports.add(passeport);
@@ -27,6 +40,12 @@ public class ServicePasseport {
         }
     }
 
+    /**
+     * Méthode pour demander la prolongation de la date d'expiration d'un passeport.
+     *
+     * @param passeport Le passeport à prolonger
+     * @param nouvelleDateExpiration La nouvelle date d'expiration
+     */
     public void demanderPrologationPasseport(Passeport passeport, LocalDate nouvelleDateExpiration) {
         if(passeports.contains(passeport)) {
             if(nouvelleDateExpiration.isAfter(passeport.getDateExpiration())){
@@ -51,6 +70,11 @@ public class ServicePasseport {
         }
     }
 
+    /**
+     * Méthode pour annuler un passeport et ses visas associés.
+     *
+     * @param passeport Le passeport à annuler
+     */
     public void annulerPasseport(Passeport passeport) {
         if(passeports.contains(passeport)) {
             passeport.setValide(false);
@@ -63,6 +87,10 @@ public class ServicePasseport {
         }
     }
 
+    /**
+     * Méthode pour vérifier la validité et les dates d'expiration des passeports.
+     * Si un passeport est expiré, il est annulé avec ses visas associés.
+     */
     public void verifierPasseports() {
         passeports.forEach(passeport -> {
             if(passeport.estValide() && passeport.getDateExpiration().isBefore(LocalDate.now())) {
@@ -76,23 +104,22 @@ public class ServicePasseport {
         });
     }
 
+    /**
+     * Méthode pour planifier une vérification annuelle des passeports chaque 31 décembre.
+     * Utilise un ScheduledExecutorService pour exécuter la tâche de vérification.
+     */
     public void planifierVerificationAnnuelle() {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
         Runnable verifierTask = () -> {
             LocalDate aujourdhui = LocalDate.now();
             if(aujourdhui.getMonthValue() == 12 && aujourdhui.getDayOfMonth() == 31) {
                 verifierPasseports();
             }
         };
-
         long initialDelay = 0;
         long period = 1;
         TimeUnit timeUnit = TimeUnit.DAYS;
         scheduler.scheduleAtFixedRate(verifierTask, initialDelay, period, timeUnit);
         System.out.println("La processus automatique de vérification de la validité et de la date d'expiration des passeports des citoyens est active");
     }
-
-
-
 }
