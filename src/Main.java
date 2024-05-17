@@ -193,5 +193,6 @@ public class Main {
             System.out.println("Merci pour votre visite.");
         }
         System.out.println("------------------------------");
+        System.exit(0);
     }
 }
