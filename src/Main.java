@@ -15,8 +15,13 @@ public class Main {
         ServicePasseport servicePasseport = new ServicePasseport();
         ServiceConsulaire serviceConsulaire = new ServiceConsulaire();
 
-        //Test systeme
+        //Test du système de gestion des passeports et des visas.
         System.out.println("------------------------------");
+        System.out.println("Test du système de gestion des passeports et des visas.");
+        System.out.println("------------------------------");
+
+        System.out.println("------------------------------");
+        System.out.println("Création d'une personne et demande de passeport et visa.");
         Personne personne = new Personne("Premier", "Max");
 
         LocalDate dateDelivrancePasseport = LocalDate.of(2024, 5, 14);
@@ -30,6 +35,7 @@ public class Main {
         String typeVisa = "Touriste";
         Visa visa = new Visa(typeVisa, dateDelivranceVisa, dateExpirationVisa);
         serviceConsulaire.demanderVisa(personne, visa);
+        System.out.println("------------------------------");
 
         System.out.println("------------------------------");
         System.out.println("Informations de la personne : ");
@@ -37,11 +43,13 @@ public class Main {
         System.out.println("------------------------------");
 
         System.out.println("------------------------------");
+        System.out.println("Prolongation de la date d'expiration du passeport ");
         LocalDate nouvelleDateExpiration = LocalDate.of(2030, 5, 14);
         servicePasseport.demanderPrologationPasseport(passeport, nouvelleDateExpiration);
         System.out.println("------------------------------");
 
         System.out.println("------------------------------");
+        System.out.println("Prolongation de la date d'expiration du visa ");
         LocalDate nouvelleDateExpirationVisa = LocalDate.of(2025, 11, 15);
         serviceConsulaire.demanderPrologationVisa(personne, visa, nouvelleDateExpirationVisa);
         System.out.println("------------------------------");
@@ -81,7 +89,7 @@ public class Main {
         servicePasseport.planifierVerificationAnnuelle();
         System.out.println("------------------------------");
 
-        //un programme simple avec Scanner pour interactions avec l'utilisateur
+        //La programme simple avec Scanner pour interactions avec l'utilisateur
         System.out.println("------------------------------");
         // Demande de création de passeport
         System.out.println("Bienvenue dans le système de gestion des passeports et des visas.");
